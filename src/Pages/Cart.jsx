@@ -144,42 +144,70 @@ const Cart = () => {
 
     console.log('Grand Sum of Prices:', totalSum);
     const handleCheckOut = async () => {
-        const uid = localStorage.getItem("USER_ID")
-        // making a get req to server ...
-        const { data: { key } } = await axios.get(`${BASE_URL}/api/get/key`)
-        console.log(key);
-        // making post req to server ...
-        // this req will create a order via razorpay ...
-        try {
-            const amount = totalSum;
-            const { data: { order } } = await axios.post(`${BASE_URL}/api/checkout`, { amount, uid })
-            // console.log(order.id);
-            const options = {
-                key: key,
-                amount: order.amount,
-                currency: "INR",
-                name: "DJI Global",
-                description: "Paying to dji global",
-                image: "https://avatars.githubusercontent.com/u/115461808?v=4",
-                order_id: order.id,
-                callback_url: `${BASE_URL}/api/paymentVerification`,
-                prefill: {
-                    name: null,
-                    email: "harshsharmaktm03@gmail.com",
-                    contact: "9000090000"
-                },
-                notes: {
-                    address: "Razorpay Corporate Office"
-                },
-                theme: {
-                    color: "#3399cc"
-                }
-            };
-            const rzp1 = new Razorpay(options);
-            rzp1.open();
-        } catch (error) {
-            console.log("error is posting amount to server", error.message)
+        
+
+        const uid = localStorage.getItem("USER_ID");
+
+// Ensure USER_ID exists before proceeding
+if (!uid) {
+    console.error("USER_ID is not found in localStorage.");
+    return;
+}
+
+try {
+    // Making a GET request to the server to fetch the Razorpay key
+    const { data: { key } } = await axios.get(`${BASE_URL}/api/get/key`);
+    if (!key) {
+        throw new Error("Failed to fetch Razorpay key from server.");
+    }
+    console.log("Fetched Razorpay key:", key);
+
+    // Making a POST request to create an order via Razorpay
+    const amount = totalSum; // Ensure totalSum is defined and a valid number
+    const { data: { order } } = await axios.post(`${BASE_URL}/api/checkout`, { amount, uid });
+
+    if (!order || !order.id) {
+        throw new Error("Order creation failed. Check the server response.");
+    }
+
+    console.log("Order ID:", order.id);
+
+    // Configuring Razorpay options
+    const options = {
+        key: key,
+         amount: order.amount,
+        
+        currency: "INR",
+        name: "DJI Global",
+        description: "Paying to DJI Global",
+        image: "https://avatars.githubusercontent.com/u/112754638?v=4",
+        order_id: order.id,
+        callback_url: `${BASE_URL}/api/paymentVerification`,
+        prefill: {
+            name: "", // Replace null with an empty string or valid value
+            email: "diwakarsharma2216@gmail.com", // Replace with dynamic values if needed
+            contact: "6394842216" // Replace with dynamic values if needed
+        },
+        notes: {
+            address: "Razorpay Corporate Office"
+        },
+        theme: {
+            color: "#3399cc"
         }
+    };
+
+    const rzp1 = new Razorpay(options);
+
+    // Handle payment success or failure callbacks
+    rzp1.on('payment.failed', function (response) {
+        console.error("Payment failed:", response.error);
+    });
+
+    rzp1.open();
+} catch (error) {
+    console.error("Error occurred:", error.message);
+}
+
     }
 
 
