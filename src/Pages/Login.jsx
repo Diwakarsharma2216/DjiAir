@@ -35,8 +35,8 @@ function Login() {
     // console.log(loginrData)
     try {
 
-      const response = await axios.post('https://drone-site-be2k24.onrender.com/users/login', loginrData);
 
+      const response = await axios.post(`${import.meta.env.VITE_BASEURL}/users/login`, loginrData);
       console.log({ msg: "login success" }, { status: response.status });
       // saving jwt token in local storage..
       const { token, user } = response.data;

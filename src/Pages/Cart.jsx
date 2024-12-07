@@ -10,7 +10,7 @@ import axios from 'axios';
 
 const Cart = () => {
 
-    const BASE_URL = "https://drone-site-be2k24.onrender.com/"
+    const BASE_URL = import.meta.env.VITE_BASEURL
     const [cartItems, setCartItems] = useState([]);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -36,7 +36,7 @@ const Cart = () => {
             try {
                 const productDetails = await Promise.all(
                     cartArray.map(async (item) => {
-                        const response = await axios.get(`${BASE_URL}api/cart/${item.product_id}`);
+                        const response = await axios.get(`${BASE_URL}/api/cart/${item.product_id}`);
                         return { ...response.data.cart, quantity: item.quantity };
                     })
                 );
@@ -124,7 +124,7 @@ const Cart = () => {
         try {
             const productDetails = await Promise.all(
                 cartArray.map(async (item) => {
-                    const response = await axios.get(`${BASE_URL}api/cart/${item.product_id}`);
+                    const response = await axios.get(`${BASE_URL}/api/cart/${item.product_id}`);
                     return { ...response.data.cart, quantity: item.quantity };
                 })
             );
@@ -146,13 +146,13 @@ const Cart = () => {
     const handleCheckOut = async () => {
         const uid = localStorage.getItem("USER_ID")
         // making a get req to server ...
-        const { data: { key } } = await axios.get(`${BASE_URL}api/get/key`)
+        const { data: { key } } = await axios.get(`${BASE_URL}/api/get/key`)
         console.log(key);
         // making post req to server ...
         // this req will create a order via razorpay ...
         try {
             const amount = totalSum;
-            const { data: { order } } = await axios.post(`${BASE_URL}api/checkout`, { amount, uid })
+            const { data: { order } } = await axios.post(`${BASE_URL}/api/checkout`, { amount, uid })
             // console.log(order.id);
             const options = {
                 key: key,
@@ -162,7 +162,7 @@ const Cart = () => {
                 description: "Paying to dji global",
                 image: "https://avatars.githubusercontent.com/u/115461808?v=4",
                 order_id: order.id,
-                callback_url: `${BASE_URL}api/paymentVerification`,
+                callback_url: `${BASE_URL}/api/paymentVerification`,
                 prefill: {
                     name: null,
                     email: "harshsharmaktm03@gmail.com",

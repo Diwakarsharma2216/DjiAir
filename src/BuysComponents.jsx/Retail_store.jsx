@@ -72,10 +72,10 @@ function Retail_store() {
         setCategory(value)
 
     };
-    const baseURL = "https://drone-site-be2k24.onrender.com/"
+    const baseURL = import.meta.env.VITE_BASEURL
     const fetchProductData = async () => {
         try {
-            const response = await axios.get(`${baseURL}api/all/data/get?sort=Price from ${sort}`);
+            const response = await axios.get(`${baseURL}/api/all/data/get?sort=Price from ${sort}`);
             if (response && response.data) {
                 setLoading(false);
                 const allProducts = response.data.Products;
@@ -94,7 +94,7 @@ function Retail_store() {
 
     async function categoryFetch() {
         try {
-            const Fetch_responce = await axios.get(`${baseURL}api/all/data/get/products?category=${category}&sort=Price from ${sort}`)
+            const Fetch_responce = await axios.get(`${baseURL}/api/all/data/get/products?category=${category}&sort=Price from ${sort}`)
             setDroneData(Fetch_responce.data.Products)
             // console.log(droneData)
         } catch (error) {

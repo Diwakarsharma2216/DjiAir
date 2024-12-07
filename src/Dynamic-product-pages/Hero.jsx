@@ -25,7 +25,7 @@ import LoadingSpinner from '../Components/LoadingSpinner.jsx';
 
 
 const Hero = () => {
-    const baseURL = "https://drone-site-be2k24.onrender.com/"
+    const baseURL = import.meta.env.VITE_BASEURL
     const { id } = useParams();
     const [pageData, setPageData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -35,7 +35,7 @@ const Hero = () => {
         const fetchPages = async () => {
             if (id) {
                 try {
-                    const res = await axios.get(`${baseURL}api/page/${id}`);
+                    const res = await axios.get(`${baseURL}/api/page/${id}`);
                     if (res && res.data) {
                         // console.log('API response:', res.data);
                         setPageData(res.data.page_data);

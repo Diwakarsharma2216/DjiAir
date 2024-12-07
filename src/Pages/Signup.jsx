@@ -51,9 +51,9 @@ function Signup() {
     setError(false);
 
     simulateProgress([1, 15, 29, 42], 1000); // Initial progress steps
-
+    
     try {
-      const response = await axios.post('https://drone-site-be2k24.onrender.com/users/register', registerData);
+      const response = await axios.post(`${import.meta.env.VITE_BASEURL}/users/register`, registerData);
 
       if (response.status === 200) {
           toast({

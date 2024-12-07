@@ -56,7 +56,7 @@ export default function UserProfileEdit() {
         email: email,
         password: password
     }
-    const BASE_URL = "https://drone-site-be2k24.onrender.com/"
+    const BASE_URL = import.meta.env.VITE_BASEURL
     const handleAuth = async (e) => {
         e.preventDefault();
         if (clicked) {
@@ -73,7 +73,7 @@ export default function UserProfileEdit() {
                 onOpen()
             } else {
                 setLoading(true)
-                const res = await axios.post(`${BASE_URL}admin/register`, signupData)
+                const res = await axios.post(`${BASE_URL}/admin/register`, signupData)
                 if (res.status === 200) {
                     setLoading(false)
                     setClicked(!true)
@@ -100,7 +100,7 @@ export default function UserProfileEdit() {
             } else {
                 setLoading(true)
                 try {
-                    const res = await axios.post(`${BASE_URL}admin/login`, loginData)
+                    const res = await axios.post(`${BASE_URL}/admin/login`, loginData)
                     if (res.status === 200) {
                         const adminToken = res.data.token;
                         localStorage.setItem("ADMIN_TOKEN", adminToken)

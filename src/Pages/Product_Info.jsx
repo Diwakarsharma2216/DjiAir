@@ -9,7 +9,7 @@ import useStore from '../Zustand/store';
 
 const Product_Info = () => {
 
-    const baseURL = "https://drone-site-be2k24.onrender.com/"
+    const baseURL = import.meta.env.VITE_BASEURL
     const { id } = useParams();
     const Navigate = useNavigate()
 
@@ -57,7 +57,7 @@ const Product_Info = () => {
     async function getSingleData() {
 
         try {
-            const response = await axios.get(`${baseURL}api/all/data/${id}`)
+            const response = await axios.get(`${baseURL}/api/all/data/${id}`)
             const details = response.data.Target;
             setProduct({
                 background_img: details.background_img,
@@ -74,7 +74,7 @@ const Product_Info = () => {
             })
 
 
-            const result = await axios.get(`${baseURL}api/all/data/${id}/random`)
+            const result = await axios.get(`${baseURL}/api/all/data/${id}/random`)
             // console.log("Random_Fetch result:", result.data.Data);
             setRandom(result.data.Data);
             // console.log("random array",random)

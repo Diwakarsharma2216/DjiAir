@@ -75,8 +75,8 @@ const AdminContent = () => {
             onOpen()
         } else {
             try {
-                const base_url = "https://drone-site-be2k24.onrender.com/"
-                const response = await axios.post(`${base_url}admin/add/product`, values);
+                const base_url = import.meta.env.VITE_BASEURL
+                const response = await axios.post(`${base_url}/admin/add/product`, values);
 
                 console.log({ msg: "add success" }, { status: response.status });
                 if (response.status === 200) {

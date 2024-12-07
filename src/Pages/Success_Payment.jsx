@@ -15,7 +15,7 @@ import { ArrowBackIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 
 const Success_Payment = () => {
-    const BASE_URL = "https://drone-site-be2k24.onrender.com/"
+    const BASE_URL = import.meta.env.VITE_BASEURL
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(false)
     const searchQuerry = useSearchParams()[0];
@@ -27,7 +27,7 @@ const Success_Payment = () => {
         try {
             setLoading(true)
             if (reff_id !== null && email !== "") {
-                const res = await axios.post(`${BASE_URL}api/sendPaymentMail`, { email: email, reff_id: reff_id });
+                const res = await axios.post(`${BASE_URL}/api/sendPaymentMail`, { email: email, reff_id: reff_id });
 
                 const examplePromise = new Promise((resolve, reject) => {
                     if (res.status === 200) {
@@ -94,7 +94,7 @@ const Success_Payment = () => {
         // console.log(user_id)
         try {
             setLoading(true)
-            const res = await axios.post(`${BASE_URL}users/shophistory`, {
+            const res = await axios.post(`${BASE_URL}/users/shophistory`, {
                 id: user_id,
                 payload: data
             })
