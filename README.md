@@ -28,25 +28,7 @@ This project is a fully functional clone of the DJI official website, built usin
 |           | bcrypt     | Multer                    |
 |           |            | Nodemailer SMTP transport |
 
-## Installation
 
-1. Clone the repository 
-   ```sh
-   git clone https://github.com/Harsh2004R/drone_site.git
-   cd drone_site
-   ```
-
-2. Install dependencies for frontend 
-   ```sh
-    cd drone_site
-    
-    npm install
-    ```
-3. Start the Frontend live server
-   ```sh
-   npm run dev
-   cd 
-   ```
 
 # Functionality
 ## Homepage
