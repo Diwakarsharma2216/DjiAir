@@ -73,7 +73,7 @@ Secure login and registration system with JWT-based authentication.
 ## Payment Processing
 
 ### Prototype Screenshots 👇
-![Homepage](./App_Assets/razorpay.png)
+![Homepage](./App_Assets/razorpayy.png)
 
 Seamless integration with Razorpay for secure payment processing.
 
