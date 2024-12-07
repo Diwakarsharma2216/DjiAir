@@ -1,7 +1,7 @@
 # DJI Official Website Clone
 
 ## Live Demo
-[DJI Official Website Clone](https://dji-global.netlify.app/)
+[DJI Official Website Clone](https://dji-air.vercel.app/)
 
 ## Overview
 This project is a fully functional clone of the DJI official website, built using the MERN stack (MongoDB, Express.js, React.js, Node.js). The clone replicates the same user interface and functionality as the original DJI website, including complete email authentication and payment processing.
